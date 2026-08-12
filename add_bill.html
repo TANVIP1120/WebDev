@@ -1,0 +1,60 @@
+<!DOCTYPE html>
+ <!-- link rel="stylesheet" href="css/style.css" -->
+<html lang="en">
+
+<head>
+
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale =1.0">
+    <link rel="stylesheet" href="{{ url_for('static', filename='auth.css') }}">
+    <title>Add Bill</title>
+
+</head>
+
+<body>
+
+    <div class ="navbar">
+        <div class="nav-left">💸 BillSplitter </div>
+    </div>
+
+    <div class="form-container">
+
+        <div class = "form-card">
+
+            <h2>Add new Bill</h2>
+
+            <form action = "/add_bill" method = "POST" enctype = "multipart/form-data" class ="form-grid">
+
+                <input type="text" name="bill_title" placeholder="Title" required>
+
+                <input type="number" name="bill_amount" placeholder="Amount(£)" required>
+                
+                <input type="text" name="bill_description" placeholder="Description">
+
+                <input type="date" name="bill_due" required>
+
+                <input type="file" name="bill_image" >
+
+
+                <select name="bill_category">
+                        <option value="">Select Category</option>
+                        <option value="Rent">Rent</option>
+                        <option value="Groceries">Groceries</option>
+                        <option value="Utilities">Utilities</option>
+                        <option value="Travel">Travel</option>
+                        <option value="Other">Other</option>
+                    
+                </select>
+
+                <button type = "submit"> Create Bill</button>
+                <a href="/home" class="form-link">← Back to Dashboard</a>
+
+                </form>
+            
+            </div>
+
+        </div>
+
+</body>
+
+</html>

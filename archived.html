@@ -1,0 +1,60 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+<meta charset="UTF-8">
+<title>Archived Bills</title>
+<link rel="stylesheet" href="{{url_for('static',filename='auth.css')}}">
+</head>
+
+<body>
+
+<div class="navbar">
+    <div class="nav-left">🗄️ Archived</div>
+
+    <div class="nav-right">
+        <a href="/home">Back</a>
+    </div>
+</div>
+
+<div class="page-content">
+
+<h1>Archived Bills</h1>
+
+{% if archived_bills %}
+
+<div class="bills-list">
+
+{% for bill in archived_bills %}
+
+<a href="/bill/{{bill.id}}" class="bill-row paid">
+
+    <div class="bill-left">
+        <div class="bill-title">{{bill.title}}</div>
+        <div class="bill-due">Archived</div>
+    </div>
+
+    <div class="bill-right">
+        <div class="bill-row-amount">
+            £{{"%.2f"|format(bill.amount)}}
+        </div>
+
+        <span class="status paid">archived</span>
+    </div>
+
+</a>
+
+{% endfor %}
+
+</div>
+
+{% else %}
+
+<p>No archived bills</p>
+
+{% endif %}
+
+</div>
+
+</body>
+</html>

@@ -1,0 +1,149 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <title>Bill Details </title>
+        <link rel="stylesheet" href="{{ url_for('static', filename='auth.css') }}">
+    </head>
+
+
+
+    <body>
+
+    <div class="navbar">
+        <div class="nav-left">💸 BillSplitter</div>
+        <div class="nav-right">
+            <a href="/home">Dashboard</a>
+        </div>
+    </div>
+
+          <div class = "page-content">
+
+
+        
+    <div class="detail-card">
+        
+
+    <h1>{{bill.title}}</h1>
+
+    {% if user_paid and not is_creator %}
+    <div class="success-banner">
+    ✅ <strong>You have paid this bill.</strong>
+    </div>
+
+    {% elif bill.status == "paid" and is_creator %}
+    <div class="success-banner">
+    🎉 <strong>Bill Cleared - Everyone has paid !</strong> Everyone has paid.
+    </div>
+    {% endif %}
+
+
+
+    <p><strong>Description:</strong>{{bill.description}}</p>
+    <p class="amount-highlight"><strong>Total Amount:</strong>£{{"%.2f"|format(bill.amount)}}</p>
+    <p>
+    <strong>Status:</strong>
+    <span class="status {{bill.status}}">
+    {{bill.status}}
+    </span>
+    </p>  
+    <p><strong>Due Date:</strong>{{bill.due_date}}</p>
+    <p><strong>Category:</strong>{{bill.category}}</p>
+
+    </div>
+
+
+    <div class="detail-card">
+
+         <h2>Participants</h2>
+
+
+    <table class = "nice-table">
+        <tr>
+        <th>Email</th>
+        <th>Amount Owed</th>
+        <th>Status</th>
+        </tr>
+
+        {% for p in participants %}
+        {% if is_creator or p.email == user_email %}
+
+        <tr>
+        <td>{{p.email}}</td>
+        <td>{{p.amount_owed}}</td>
+        <td>
+            {% if p.email == user_email %}
+
+            <form method="POST" action="{{ url_for('update_status')}}">
+                <input type = "hidden" name="participant_id" value= "{{p.id}}">
+                <select name="status">
+                    <option value="pending" {% if p.status == "pending" %}selected{% endif %}>Pending</option>
+                    <option value="paid" {% if p.status == "paid" %}selected{% endif %}>Paid</option>
+                </select>
+                <button type="submit">Update</button>
+            </form>
+
+            {% else %}
+                {{p.status}}
+            {% endif %}
+        
+        
+        </td>
+
+        </tr>
+
+        {% endif %}
+        {% endfor %}
+
+    </table>
+
+    </div>
+
+
+    {% if is_creator %}
+
+    <div class = "detail-card">
+
+    <h2>Add Participant</h2>
+    
+
+    <form method="POST" action="{{ url_for('share_bill', bill_id=bill.id) }}">
+
+
+        <label>Select user to add: </label>
+
+        <select name="user_id">
+
+            {% for user in users %}
+
+            <option value="{{user.id}}">{{ user.email }}</option>
+
+            {% endfor %}
+
+        </select>
+
+        <button type="submit">Add Participant</button>
+
+    </form>
+
+    </div>
+
+    {% endif %}
+
+    {% if not bill.archived %}
+        <a href="{{ url_for('archive_bill', bill_id=bill.id) }}" class="btn-archive">
+        Archive Bill
+        </a>
+        {% endif %}
+
+        <br><br>
+  
+    <a href="/home">Back to Dashboard</a>
+
+    </div>
+
+    </body>
+    </html>
+
+
+
+

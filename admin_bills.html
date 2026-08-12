@@ -1,0 +1,51 @@
+<head>
+<title>Admin Dashboard</title>
+<link rel="stylesheet" href="{{url_for('static',filename='auth.css')}}">
+</head>
+
+<div class="navbar">
+
+        <div class="nav-left"> Admin </div>
+
+        <div class="nav-right">
+           <a href="/admin">Back</a>
+
+        </div>
+    </div>
+
+<h1>All Bills</h1>
+
+<table border="1">
+    <tr>
+        <th>ID</th>
+        <th>Title</th>
+        <th>Amount</th>
+        <th>Status</th>
+        <th>Actions</th>
+
+
+    </tr>
+
+    {% for b in bills %}
+    <tr>
+        <td>{{b.id}}</td>
+        <td>{{b.title}}</td>
+        <td>{{b.amount}}</td>
+        <td>{{b.status}}</td>
+
+        <td>
+            <a href="/admin/edit_bill/{{b.id}}">Edit</a>
+            <a href="/admin/archive_bill/{{b.id}}">Archive</a>
+            <a href="/admin/delete_bill/{{b.id}}">Delete</a>
+        </td>
+        
+
+    </tr>
+
+    {% endfor %}
+
+
+</table>
+
+
+</html>

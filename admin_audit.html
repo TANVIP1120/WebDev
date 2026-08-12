@@ -1,0 +1,46 @@
+<head>
+<meta charset="UTF-8">
+<title>Audit Log</title>
+<link rel="stylesheet" href="{{url_for('static',filename='auth.css')}}">
+</head>
+
+
+
+ <div class="navbar">
+
+        <div class="nav-left"> Admin </div>
+
+        <div class="nav-right">
+           <a href="/admin">Back</a>
+
+        </div>
+    </div>
+
+    <h1>System Audit Log</h1>
+
+
+<table border="1">
+
+    <tr>
+    <th>Bill</th>
+    <th>Action</th>
+    <th>User</th>
+    <th>Time</th>
+    </tr>
+
+    {% for a in audits %}
+
+    <tr>
+    <th>{{a.bill_id}}</th>
+    <th>{{a.action}}</th>
+    <th>{{a.user_email}}</th>
+    <th>{{a.timestamp}}</th>
+    </tr>
+
+ {% endfor %}
+
+</table>
+
+
+
+    </html>

@@ -1,0 +1,137 @@
+<!DOCTYPE html>
+ <!-- link rel="stylesheet" href="css/style.css" -->
+<html lang="en">
+
+<head>
+
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale =1.0">
+
+<title>Dashboard</title>
+
+<link rel="stylesheet" href="{{url_for('static',filename='auth.css')}}">
+
+
+</head>
+
+
+
+<body>
+
+    <a href="/add_bill" class="add-bill-btn">+</a>
+
+
+    <div class="navbar">
+        <div class ="nav-left">💸 BillSplitter</div>
+        <div class ="nav-right">
+            <a href="/cleared">Cleared</a>
+            <a href="/archived">Archived</a>
+            <a href="/logout" >Logout</a>
+        </div>
+    </div>
+
+    <div class="page-content">
+    <h1>Welcome {{user_name}}</h1>
+
+    <div class ="dashboard-cards">
+
+        <div class="card">
+            <h3> You Owe </h3>
+            <p>£{{"%.2f"|format(you_owe)}}</p>
+
+        </div>
+
+        <div class="card">
+            <h3> You Are Owed </h3>
+            <p>£{{"%.2f"|format(you_are_owed)}}</p>
+
+        </div>
+
+        <div class="card">
+            <h3> Bills Remaining </h3>
+            <p>{{bills_remaining}}</p>
+        </div>
+
+        <div class="card">
+            <h3> Paid This Month </h3>
+            <p>£{{"%.2f"|format(paid_this_month)}}</p>
+         </div>
+
+    </div>
+
+
+    <h2>Current Bills</h2>
+
+    {% if pending_bills %}
+
+    <div class="bills-list">
+
+    {% for bill in pending_bills %}
+
+    <a href="/bill/{{bill.id}}" class="bill-row pending">
+
+    <div class="bill-left">
+        <div class="bill-title">{{bill.title}}</div>
+         <div class="bill-due">
+        {{bill.category}} • Due {{bill.due_date}}
+    </div>
+
+    </div>
+
+    <div class="bill-right">
+        <div class="bill-row-amount">
+            £{{"%.2f"|format(bill.amount)}}
+        </div>
+
+        <span class="status pending">pending</span>
+    </div>
+
+</a>
+
+{% endfor %}
+
+</div>
+
+
+    {% else %}
+    <p>No current yet </p>
+    {% endif %}
+
+
+    <h2>Recent Activity</h2>
+
+    <div class="activity-list">
+
+    {% if audits %}
+
+
+         {% for a in audits %}
+
+    <div class="activity-row">
+        <div class="activity-dot"> </div>
+
+    <div>
+        <div class="activity-action">
+            {{a.action}}
+        </div>
+
+        <div class="activity-meta">
+                {{a.user_email}} • {{a.timestamp.strftime("%d %b %H:%M")}}
+        </div>
+
+    </div>
+
+</div>
+
+    {% endfor %}
+
+{% else %}
+<p>No recent activity</p>
+{% endif %}
+
+    </div>
+
+
+</body>
+
+</html>

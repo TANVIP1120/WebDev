@@ -1,0 +1,58 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+<meta charset="UTF-8">
+<title>Edit Bill</title>
+<link rel="stylesheet" href="{{url_for('static',filename='auth.css')}}">
+</head>
+
+<body>
+
+<div class="navbar">
+    <div class="nav-left">Admin Panel</div>
+
+    <div class="nav-right">
+        <a href="/admin/bills">All Bills</a>
+        <a href="/logout">Logout</a>
+    </div>
+</div>
+
+<div class="page-content">
+
+<h1>Edit Bill</h1>
+
+<div class="form-card">
+
+<form method="POST">
+
+<div>
+    <label>Title</label>
+    <input name="title" value="{{bill.title}}">
+</div>
+
+<div>
+    <label>Amount</label>
+    <input name="amount" value="{{bill.amount}}">
+</div>
+
+<div>
+    <label>Status</label>
+    <select name="status">
+    <option value="pending" {% if bill.status=="pending" %}selected{% endif %}>Pending</option>
+    <option value="paid" {% if bill.status=="paid" %}selected{% endif %}>Paid</option>
+    </select>
+</div>
+
+<br><br>
+
+<button type="submit">Save Changes</button>
+
+</form>
+
+</div>
+
+</div>
+
+</body>
+</html>

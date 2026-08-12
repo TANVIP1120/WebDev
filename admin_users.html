@@ -1,0 +1,44 @@
+<head>
+<title>Admin Dashboard</title>
+<link rel="stylesheet" href="{{url_for('static',filename='auth.css')}}">
+</head>
+
+<div class="navbar">
+
+        <div class="nav-left"> Admin </div>
+
+        <div class="nav-right">
+           <a href="/admin">Back</a>
+
+        </div>
+    </div>
+
+<h1>All Users</h1>
+
+<table border="1">
+
+    <tr>
+        <th>ID</th>
+        <th>Name</th>
+        <th>Email</th>
+        <th>Created</th>
+
+    </tr>
+
+    {% for u in users %}
+
+    <tr>
+        <th>{{u.id}}</th>
+        <th>{{u.name}}</th>
+        <th>{{u.email}}</th>
+        <th>{{u.created_at}}</th>
+
+    </tr>
+
+    {% endfor %}
+
+
+</table>
+
+
+</html>

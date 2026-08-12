@@ -1,0 +1,71 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+<title>Admin Dashboard</title>
+<link rel="stylesheet" href="{{url_for('static',filename='auth.css')}}">
+</head>
+
+<body>
+
+<div class="navbar">
+    <div class="nav-left">Admin Panel</div>
+    <div class="nav-right">
+        <a href="/logout">Logout</a>
+    </div>
+</div>
+
+<div class="page-content">
+
+<h1>System Overview</h1>
+
+<div class="dashboard-cards">
+
+<div class="card">
+<h3>Total Users</h3>
+<p>{{total_users}}</p>
+</div>
+
+<div class="card">
+<h3>Total Bills</h3>
+<p>{{total_bills}}</p>
+</div>
+
+<div class="card">
+<h3>Open Bills</h3>
+<p>{{open_bills}}</p>
+</div>
+
+<div class="card">
+<h3>Closed Bills</h3>
+<p>{{closed_bills}}</p>
+</div>
+
+</div>
+
+<h2>Admin Actions</h2>
+
+<div class="bills-list">
+
+<a href="/admin/users" class="bill-row">
+<div class="bill-title">Manage Users</div>
+</a>
+
+<a href="/admin/bills" class="bill-row">
+<div class="bill-title">View All Bills</div>
+</a>
+
+<a href="/admin/audit" class="bill-row">
+<div class="bill-title">System Activity Log</div>
+</a>
+
+<a href="/admin/login_attempts" class="bill-row">
+<div class="bill-title">Login Attempts</div>
+</a>
+
+</div>
+
+</div>
+
+</body>
+</html>
